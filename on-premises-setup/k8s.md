@@ -34,7 +34,7 @@ Do this on master and both workers:
   $ sudo apt install -y kubelet kubeadm kubectl
   $ sudo apt-mark hold kubelet kubeadm kubectl
 
-🚀 Master Node Setup (e.g., 10.10.12.39)
+🚀 Master Node Setup (e.g., 10.10.12.43)
 1. (Optional) Use kubeadm config file for HA/fine-tuned setup
 Save as kubeadm-config.yaml:
 ...
@@ -42,7 +42,7 @@ Save as kubeadm-config.yaml:
  # apiVersion: kubeadm.k8s.io/v1beta3
  # kind: ClusterConfiguration
  # kubernetesVersion: v1.33.3
- # controlPlaneEndpoint: "10.10.12.39:6443"
+ # controlPlaneEndpoint: "10.10.12.43:6443"
  # networking:
  #  podSubnet: "10.244.0.0/16"
 ...
@@ -113,7 +113,7 @@ helm install cilium cilium/cilium \
   discovery:
   bootstrapToken:
     token: <token>
-    apiServerEndpoint: "10.10.12.39:6443"
+    apiServerEndpoint: "10.10.12.43:6443"
     caCertHashes:
     - sha256:<hash>
 
