@@ -63,6 +63,17 @@ $ curl -L --remote-name https://github.com/cilium/cilium-cli/releases/latest/dow
 $ sudo tar xzvf cilium-linux-amd64.tar.gz -C /usr/local/bin
 $ cilium version
 
+#Option 1: Install Helm (Recommended via Script)
+ $curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+Option 2: Install via apt (alternative)
+  $sudo apt update
+  $sudo apt install -y helm
+
+# Add Cilium Helm repo --Cilium Helm repo yet, do this first:
+ $ helm repo add cilium https://helm.cilium.io/
+ $ helm repo update
+
 # Install Cilium with Helm
 helm install cilium cilium/cilium \
   --version 1.17.5 \
