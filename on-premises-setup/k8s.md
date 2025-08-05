@@ -44,13 +44,13 @@ Save as kubeadm-config.yaml:
  # kubernetesVersion: v1.33.3
  # controlPlaneEndpoint: "10.10.12.43:6443"
  # networking:
- #  podSubnet: "10.244.0.0/16"
+ #  podSubnet: "10.244.0.0/24"
 ...
 2.Initialize Kubernetes Master
   $ sudo kubeadm init --config kubeadm-config.yaml --upload-certs
 
 # If using simple setup without config file:
-  $ sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+  $ sudo kubeadm init --pod-network-cidr=10.244.0.0/24
 
 3. Configure kubectl for root user
  $ mkdir -p $HOME/.kube
