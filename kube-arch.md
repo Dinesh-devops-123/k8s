@@ -25,18 +25,18 @@ It holds configuration data and metadata for the entire cluster, including:
 Here’s how it works:
 
 #Master (Control Plane) events stored in etcd
--Creation, update, or deletion of Kubernetes objects (pods, services, deployments, etc.)
--Changes in cluster state (node joins, node leaves, status changes)
--Configuration updates (ConfigMaps, Secrets, RBAC rules)
--Scheduling decisions made by the scheduler
--Rolling update or rollback operations
+-Creation, update, or deletion of Kubernetes objects (pods, services, deployments, etc.).
+-Changes in cluster state (node joins, node leaves, status changes).
+-Configuration updates (ConfigMaps, Secrets, RBAC rules).
+-Scheduling decisions made by the scheduler.
+-Rolling update or rollback operations.
 
 #Worker node–related events stored in etcd
--Node registration and heartbeats (status updates from kubelet)
--Pod status changes (Running → Failed → Restarted)
--Resource usage updates (CPU/memory requests/limits in pod specs)
--Node readiness/unreadiness state
--Deletion of pods or nodes from the cluster
+-Node registration and heartbeats (status updates from kubelet).
+-Pod status changes (Running → Failed → Restarted).
+-Resource usage updates (CPU/memory requests/limits in pod specs).
+-Node readiness/unreadiness state.
+-Deletion of pods or nodes from the cluster.
 
 4.Controller Manager – It is a combination of different controllers such as the Node Controller, Namespace Controller, Deployment Controller, and Replication Controller. It ensures that all controllers are running properly, everything is monitored, and the cluster components remain healthy. For example, if a pod goes down, it monitors the pod and restarts it as needed. It is responsible for running controllers that manage the state of the cluster, ensuring that the desired number of pod replicas are running. The Deployment Controller also manages rolling updates and rollbacks of deployments.
 
