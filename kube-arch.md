@@ -1,5 +1,4 @@
-#Control plane
-  control plane is responsible for manging the state of cluster.It runs and manage multiple nodes and span across multiple servers and data center.
+#Control plane - control plane is responsible for manging the state of cluster.It runs and manage multiple nodes and span across multiple servers and data center.
 
 #Components:
 1.API Server
@@ -31,6 +30,7 @@ Here’s how it works:
 -Configuration updates (ConfigMaps, Secrets, RBAC rules)
 -Scheduling decisions made by the scheduler
 -Rolling update or rollback operations
+
 #Worker node–related events stored in etcd
 -Node registration and heartbeats (status updates from kubelet)
 -Pod status changes (Running → Failed → Restarted)
