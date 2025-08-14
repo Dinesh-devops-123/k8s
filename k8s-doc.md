@@ -61,3 +61,35 @@ Flannel, Calico, Cilium, Weave, etc.
 DNS support (via CoreDNS)
 Ingress: Route external traffic to internal services.
 Network Policies: Control traffic between pods for security.
+
+
+---------------------------------------------------------------
+##Imperative vs Declerative 
+
+#Imperative - Definition: You tell the system exactly what to do and how to do it.
+Action-based — run direct commands to create, modify, or delete resources.
+State is applied immediately but not saved for future.
+Good for quick fixes or testing.
+
+eg:
+# Create a pod imperatively
+kubectl run mypod --image=nginx
+
+# Expose a service imperatively
+kubectl expose pod mypod --port=80 --type=NodePort
+
+#Declarative - Definition: You define what you want (the desired state) in a file (usually YAML/JSON), and Kubernetes figures out how to get there.
+State-based — you focus on the end state, not the exact steps.
+Files can be version-controlled (GitOps friendly).
+Good for repeatable deployments and automation.
+
+# pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+##kubectl apply -f pod.yaml
