@@ -1,5 +1,5 @@
 # Kubernetes Troubleshooting Cheat Sheet
-## 1. Confirm Cluster & Namespace
+## 1.Confirm Cluster & Namespace
 
 # Check current context
 kubectl config current-context
@@ -17,7 +17,7 @@ kubectl get ns
 kubectl get pods -n <namespace>
 
 
-##2.Big picture:nodes,pods & events.
+## 2.Big picture:nodes,pods & events.
 # List nodes
 kubectl get nodes
 
@@ -31,7 +31,7 @@ kubectl get deployments -A
 kubectl get events --sort-by=.metadata.creationTimestamp -A
 
 
-##3.Inspect the failing pod.
+## 3.Inspect the failing pod.
 # Describe the pod
 kubectl describe pod <pod-name> -n <namespace>
 
@@ -45,7 +45,7 @@ kubectl logs <pod> -c <container> -n <namespace>
 kubectl exec -it <pod> -n <namespace> -- /bin/sh
 
 
-##4.Probes & health checks.
+## 4.Probes & health checks.
 # Check readiness/liveness probe info in describe
 kubectl describe pod <pod> -n <namespace>
 
@@ -55,7 +55,7 @@ kubectl exec -it <pod> -n <namespace> -- curl -sv localhost:<port>/health
 # Adjust probe timeouts if needed (in Deployment YAML)
 
 
-##5.Rollouts,history & recover.
+## 5.Rollouts,history & recover.
 # Check rollout status
 kubectl rollout status deployment/<name> -n <namespace>
 
@@ -65,7 +65,7 @@ kubectl rollout history deployment/<name> -n <namespace>
 # Rollback if needed
 kubectl rollout undo deployment/<name> -n <namespace>
 
-##6.Networking & services.
+## 6.Networking & services.
 # List services
 kubectl get svc -n <namespace>
 
@@ -82,7 +82,7 @@ kubectl exec -it <pod> -n <namespace> -- nslookup <service>
 kubectl port-forward svc/<svc> 8080:80 -n <namespace>
 
 
-##7.Storage(PVC/PV).
+## 7.Storage(PVC/PV).
 # List Persistent Volumes
 kubectl get pv
 
@@ -99,7 +99,7 @@ kubectl describe pvc <pvc> -n <namespace>
 kubectl describe pod <pod-name> -n <namespace>
 
 
-##8.Resources, logs & quick fixes.
+## 8.Resources, logs & quick fixes.
 # Resource usage (nodes)
 kubectl top nodes
 
