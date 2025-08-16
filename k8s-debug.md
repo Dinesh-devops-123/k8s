@@ -1,50 +1,117 @@
-1.**confirm cluster & namespace.**
-#kubectl config current-context (check current context)
-#kubectl config get-contexts  (list contexts)
-#kubectl config use-context <name> (switch context)
-#kubectl get ns |kubectl get pods -n <namespace> (list namespaces)
+# Kubernetes Troubleshooting Cheat Sheet
+## 1. Confirm Cluster & Namespace
 
-2.Big picture:nodes,pods & events.
-#kubectl get nodes (list nodes)
-#kubectl get pods -A (all pods)
-#kubectl get deployments -A (All deployments)
-#kubectl get events --sort-by=.metadata.creationTimestamp -A (recent events)
+# Check current context
+kubectl config current-context
 
-3.Inspect the failing pod.
-#kubectl describe pod <pod-name> -n <namespace> (describe the pod)
-#kubectl log <pod> -n <namespace> (view logs)
-#kubectl logs <pod> -c <container> -n <namespace> (logs for a specific container)
-#kubectl exec -it <pod> -n <namespace> --/bin/sh (open a shell inside the pod)
+# List contexts
+kubectl config get-contexts
 
-4.Probes & health checks.
-#check readiness/liveness probe info in 'kubectl describe'
-#kubectl exec -it <pod> -n <namespace> --curl -sv localhost:<port>/health (test the probe endpoint from inside the pod)
-#Adjust probe timeouts if needed
+# Switch context
+kubectl config use-context <name>
 
-5.Rollouts,history & recover.
-#kubectl rollout status deployment/<name> -n <namespace> (check rollout status)
-#kubectl rollout history deployment/<name> -n <namespace> (view rollout history)
-#kubectl rollout undo deployment/<name> -n <namespace> (rollback if needed)
+# List namespaces
+kubectl get ns
 
-6.Networking & services.
-#kubectl get svc -n <namespace> (list services)
-#kubectl get endpoints -n <namespace> (check endpoints)
-#kubectl describe svc <service-name> -n <namespace> 
-#kubectl exec -it <pod> -n <namespace> --nslookup <service> (DNS test from a pod)
-#kubectl port-forward svc/<svc> 8080:80 -n <namespace> (quick local test with port-forward)
+# List pods in a namespace
+kubectl get pods -n <namespace>
 
-7.Storage(PVC/PV).
-#kubectl get pv
-#kubectl get pvc -n <ns> (list PVC's)
-#kubectl describe pv <pv-name> -n <ns> (describe a PVC)
-#kubectl describe pvc <pvc> -n <ns> 
-#check mount errors in pod 'kubectl describe pod'
 
-8.Resources, logs & quick fixes.
-#kubectl top nodes                              # Resource usage (nodes)
-#kubectl top pods -n <namespace>                # Resource usage (pods)
+##2.Big picture:nodes,pods & events.
+# List nodes
+kubectl get nodes
+
+# List all pods
+kubectl get pods -A
+
+# List all deployments
+kubectl get deployments -A
+
+# View recent events (sorted by time)
+kubectl get events --sort-by=.metadata.creationTimestamp -A
+
+
+##3.Inspect the failing pod.
+# Describe the pod
+kubectl describe pod <pod-name> -n <namespace>
+
+# View logs
+kubectl logs <pod> -n <namespace>
+
+# View logs for a specific container
+kubectl logs <pod> -c <container> -n <namespace>
+
+# Open a shell inside the pod
+kubectl exec -it <pod> -n <namespace> -- /bin/sh
+
+
+##4.Probes & health checks.
+# Check readiness/liveness probe info in describe
+kubectl describe pod <pod> -n <namespace>
+
+# Test probe endpoint from inside the pod
+kubectl exec -it <pod> -n <namespace> -- curl -sv localhost:<port>/health
+
+# Adjust probe timeouts if needed (in Deployment YAML)
+
+
+##5.Rollouts,history & recover.
+# Check rollout status
+kubectl rollout status deployment/<name> -n <namespace>
+
+# View rollout history
+kubectl rollout history deployment/<name> -n <namespace>
+
+# Rollback if needed
+kubectl rollout undo deployment/<name> -n <namespace>
+
+##6.Networking & services.
+# List services
+kubectl get svc -n <namespace>
+
+# Check endpoints
+kubectl get endpoints -n <namespace>
+
+# Describe a service
+kubectl describe svc <service-name> -n <namespace>
+
+# Test DNS resolution from inside a pod
+kubectl exec -it <pod> -n <namespace> -- nslookup <service>
+
+# Quick local test with port-forward
+kubectl port-forward svc/<svc> 8080:80 -n <namespace>
+
+
+##7.Storage(PVC/PV).
+# List Persistent Volumes
+kubectl get pv
+
+# List PVCs
+kubectl get pvc -n <namespace>
+
+# Describe PV
+kubectl describe pv <pv-name> -n <namespace>
+
+# Describe PVC
+kubectl describe pvc <pvc> -n <namespace>
+
+# Check mount errors in pod
+kubectl describe pod <pod-name> -n <namespace>
+
+
+##8.Resources, logs & quick fixes.
+# Resource usage (nodes)
+kubectl top nodes
+
+# Resource usage (pods)
+kubectl top pods -n <namespace>
+
 # Tail logs from multiple pods (external tools)
-#stern <pod-pattern> -n <namespace>
-#kubetail <pod-pattern> -n <namespace>
-#kubectl rollout restart deployment/<name> -n <ns> (restart deployment)
-#kubectl delete pod <pod> -n <ns> (recreate a pod safetly & controller will recreate)
+stern <pod-pattern> -n <namespace>
+kubetail <pod-pattern> -n <namespace>
+
+# Restart deployment
+kubectl rollout restart deployment/<name> -n <namespace>
+
+# Recreate a pod safely (controller will recreate)
+kubectl delete pod <pod> -n <namespace>
