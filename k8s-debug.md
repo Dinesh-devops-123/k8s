@@ -1,4 +1,4 @@
-1.confirm cluster & namespace.
+1.**confirm cluster & namespace.**
 #kubectl config current-context (check current context)
 #kubectl config get-contexts  (list contexts)
 #kubectl config use-context <name> (switch context)
